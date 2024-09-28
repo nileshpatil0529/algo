@@ -1,0 +1,88 @@
+<div class="container text-center">
+  <!-- Row to contain both the dropdown and the card -->
+  <div class="row justify-content-center">
+    <!-- Dropdown for Indicator Selection -->
+    <div class="col-md-6">
+      <select
+        id="indicatorSelect"
+        class="form-select"
+        [(ngModel)]="selectedIndicator"
+        (change)="fetchAlerts()"
+      >
+        <option *ngFor="let alert of alertsList" [value]="alert">
+          {{ alert }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Card to display the Profit/Loss -->
+    <div class="col-md-3" *ngIf="getTotalProfitLoss()">
+      <div class="card p-2">
+        <h6
+          [ngClass]="{
+            'text-success': getTotalProfitLoss() > 0,
+            'text-danger': getTotalProfitLoss() < 0
+          }"
+        ><b>
+          {{getTotalProfitLoss() < 0 ? 'LOSS:' : 'PROFIT:'}} {{ getTotalProfitLoss() | number : "1.2-2" }}
+        </b>
+        </h6>
+      </div>
+    </div>
+  </div>
+
+  <!-- Display Cards -->
+  <div class="container-fluid my-2">
+    <div class="row justify-content-center">
+      <div class="col-12">
+        <table class="table table-bordered table-hover text-center w-100">
+          <thead class="table-dark">
+            <tr>
+              <th>Order Action</th>
+              <th>Order Contracts</th>
+              <th>Ticker</th>
+              <th>Position Size</th>
+              <th>Order Price</th>
+              <th>Total Prize</th>
+              <th>Created At</th>
+              <th>Profit/Loss</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let order of alertData; let i = index">
+              <!-- Display the first row -->
+              <tr>
+                <td>{{ order.order_action }}</td>
+                <td>{{ order.order_contracts }}</td>
+                <td>{{ order.ticker }}</td>
+                <td>{{ order.position_size }}</td>
+                <td>{{ order.order_price | number : "1.2-2" }}</td>
+                <td>{{ order.order_contracts * order.order_price | number : "1.2-2"}}</td>
+                <td>{{ order.createdAt | istDate }}</td>
+
+                <!-- Profit/Loss Column -->
+                <td>
+                  <ng-container *ngIf="i % 2 === 1">
+                    <span
+                      [ngClass]="{
+                        'text-success': order.profite_loss > 0,
+                        'text-danger': order.profite_loss <= 0
+                      }"
+                    >
+                      <b>{{ order.profite_loss | number : "1.2-2" }}</b>
+                    </span>
+                  </ng-container>
+                </td>
+              </tr>
+
+              <!-- Empty row after every two rows -->
+              <tr *ngIf="(i + 1) % 2 === 0">
+                <td colspan="10">&nbsp;</td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

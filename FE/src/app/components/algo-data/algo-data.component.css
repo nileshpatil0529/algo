@@ -1,0 +1,49 @@
+.tbl-style {
+    font-size: 5px;
+    font-weight: 100
+}
+
+.table-success {
+    --bs-table-bg: #3a2d7d !important;
+    --bs-table-color: whitesmoke;
+}
+
+thead th {
+    background-color: #3a2d7d;
+    color: whitesmoke;
+    font-size: 0.75rem;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    padding: 4px 4px;
+    text-transform: uppercase;
+    backface-visibility: hidden;
+}
+
+.color-row-col {
+    background-color: #f1eed9;
+}
+
+tbody tr {
+    font-size: 11px;
+    font-weight: 500;
+}
+
+select,
+option {
+    color: #C35516;
+    --bs-form-select-bg-img: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23C35516' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+}
+
+.sticky-top {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: white;
+    padding: 10px 0;
+  }
+
+  .clear-reload {
+    top: 30px !important;
+    color: #C35516;
+  }

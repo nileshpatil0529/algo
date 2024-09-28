@@ -1,0 +1,134 @@
+<div class="container my-3 d-flex justify-content-center">
+  <form class="row g-3">
+    <!-- Exchange Field -->
+    <div class="col-auto position-relative">
+      <label for="exchange" class="form-label">Exchange</label>
+      <select id="exchange" [(ngModel)]="tradeData.exchange" name="exchange" class="form-select" (change)="expStrikeList()">
+        <option value="NIFTY">NIFTY</option>
+        <option value="BANKNIFTY">BANKNIFTY</option>
+      </select>
+    </div>
+
+    <!-- Expiry Field -->
+    <div class="col-auto position-relative">
+      <label for="expiry" class="form-label">Expiry Date</label>
+      <select id="expiry" [(ngModel)]="tradeData.expiryDate" name="expiryDate" (change)="onSelectChange($event)" class="form-select">
+        <option *ngFor="let date of expiryDates" [value]="date">
+          {{ date }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Strike Price Field -->
+    <div class="col-auto position-relative">
+      <label for="strikePrice" class="form-label">Strike Price</label>
+      <select id="strikePrice" [(ngModel)]="tradeData.strikePrice" name="strikePrice" (change)="onSelectChange($event)" class="form-select">
+        <option *ngFor="let price of strikePrices" [value]="price">
+          {{ price }}
+        </option>
+      </select>
+    </div>
+
+    <!-- From Time Field -->
+    <div class="col-auto position-relative">
+      <label for="fromTime" class="form-label">From</label>
+      <select id="fromTime" [(ngModel)]="tradeData.fromTime" name="fromTime" class="form-select">
+        <option *ngFor="let time of times" [value]="time">{{ time }}</option>
+      </select>
+    </div>
+
+    <!-- To Time Field -->
+    <div class="col-auto position-relative">
+      <label for="toTime" class="form-label">To</label>
+      <select id="toTime" [(ngModel)]="tradeData.toTime" name="toTime" class="form-select" (change)="onSelectChange($event)">
+        <option *ngFor="let time of times" [value]="time">{{ time }}</option>
+      </select>
+    </div>
+
+    <div class="col-auto position-relative">
+      <button type="button" class="btn btn-sm btn-light rounded-circle position-absolute clear-reload" style="right: -70px;" (click)="expStrikeList()">&#x2715;</button>
+      <button type="button" class="btn btn-sm btn-light rounded-circle position-absolute clear-reload" style="right: -30px;" (click)="onSubmit()">&#x21bb;</button>
+    </div>
+  </form>
+</div>
+
+
+
+<!-- Table Data -->
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <h4 *ngIf="!tradeDataArray.length" class="text-center text-danger py-5">
+      No data found!
+    </h4>
+    <div class="col-12" *ngIf="tradeDataArray.length">
+      <table class="table table-hover text-center table-bordered">
+        <thead class="table-success tbl-style">
+          <tr>
+            <th colspan="1"></th>
+            <th colspan="1"></th>
+            <th colspan="8">CALLS</th>
+            <th colspan="1"></th>
+            <th colspan="8">PUTS</th>
+          </tr>
+          <tr class="sticky-top">
+            <!-- First Set of Columns -->
+            <th>Date Time</th>
+            <th>Underlying</th>
+            <th>OI</th>
+            <th>Chng in OI</th>
+            <th>Volume</th>
+            <th>IV</th>
+            <th>LTP</th>
+            <th>Chng</th>
+            <th>Buy Qty</th>
+            <th>Sell Qty</th>
+            <!-- Strike Price -->
+            <th>{{ expiryCheck ? "Strike" : "Expiry" }}</th>
+            <!-- Second Set of Columns -->
+            <th>Sell Qty</th>
+            <th>Buy Qty</th>
+            <th>Chng</th>
+            <th>LTP</th>
+            <th>IV</th>
+            <th>Volume</th>
+            <th>Chng in OI</th>
+            <th>OI</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let tradeData of tradeDataArray">
+          <tr *ngFor="let trade of tradeData['data']">
+            <!-- Buy columns (10 columns) -->
+            <td class="color-row-col">{{ trade["createdAt"] ? (trade["createdAt"] | istDate) : "-" }}</td>
+            <!-- <td class="color-row-col">{{ trade['strikePrice'] || "-" }}</td> -->
+            <td class="color-row-col">{{ trade['CE'] ? (trade['CE']["underlyingValue"]) : trade['PE'] ? (trade['PE']["underlyingValue"]) : "-" }}</td>
+            <td>{{ trade["CE"] ? trade["CE"].openInterest : "-" }}</td>
+            <td>{{ trade["CE"] ? trade["CE"].changeinOpenInterest : "-" }}</td>
+            <td>{{ trade["CE"] ? trade["CE"].totalTradedVolume : "-" }}</td>
+            <td>{{ trade["CE"] ? trade["CE"].impliedVolatility : "-" }}</td>
+            <td>{{ trade["CE"] ? trade["CE"].lastPrice : "-" }}</td>
+            <td>{{ trade["CE"] ? (trade["CE"].change | number : "1.2-2") : "-" }}</td>
+            <td>{{ trade["CE"] ? trade["CE"].totalBuyQuantity : "-" }}</td>
+            <td>{{ trade["CE"] ? trade["CE"].totalSellQuantity : "-" }}</td>
+            <!-- Strike Price column -->
+            <td [ngStyle]="{
+                  'background-color': getNearestStrikePrice(trade['CE'] ? trade['CE'].underlyingValue : '-') === trade.strikePrice ? 'green' : '',
+                  color: getNearestStrikePrice(trade['CE'] ? trade['CE'].underlyingValue : '-') === trade.strikePrice ? 'white' : ''
+                }">
+              {{ expiryCheck ? trade.strikePrice : trade.expiryDate }}
+            </td>
+            <!-- Sell columns (10 columns) -->
+            <td>{{ trade["PE"] ? trade["PE"].totalSellQuantity : "-" }}</td>
+            <td>{{ trade["PE"] ? trade["PE"].totalBuyQuantity : "-" }}</td>
+            <td>{{ trade["PE"] ? (trade["PE"].change | number : "1.2-2") : "-" }}</td>
+            <td>{{ trade["PE"] ? trade["PE"].lastPrice : "-" }}</td>
+            <td>{{ trade["PE"] ? trade["PE"].impliedVolatility : "-" }}</td>
+            <td>{{ trade["PE"] ? trade["PE"].totalTradedVolume : "-" }}</td>
+            <td>{{ trade["PE"] ? trade["PE"].changeinOpenInterest : "-" }}</td>
+            <td>{{ trade["PE"] ? trade["PE"].openInterest : "-" }}</td>
+          </tr>
+          <tr><td colspan="19" class="color-row-col"></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
