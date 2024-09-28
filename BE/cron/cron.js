@@ -3,7 +3,7 @@ import moment from 'moment-timezone';
 import { storeOptionChainNSE, storeExpiryStrike, clearDB } from './cron-helper.js';
 
 export const cronRunner = () => {
-  // Cron job for every minute from 9:15 AM IST to 3:30 PM IST (which is 11:45 AM SGT to 6:00 PM SGT)
+  // Cron job for every minute from 9:15 AM IST to 3:30 PM IST (which is 11:45 AM SGT to 6:00 PM SGT Singapore)
   // cron.schedule('*/1 11-17 * * 1-5', () => {
   cron.schedule('*/1 9-15 * * 1-5', () => {
     const now = moment().tz('Asia/Kolkata');

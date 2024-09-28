@@ -1,4 +1,4 @@
-import { getISTTime } from '../comon/util.js';
+import { getCurrentIstTime } from '../comon/util.js';
 import { NiftyData, BankNiftyData, ExpStrike } from '../models/model.js';
 
 const apis = [
@@ -23,7 +23,7 @@ export const storeOptionChainNSE = async () => {
       optionChainData = await response.json();
       //   storeExpiryStrike(optionChainData);
       optionChainData.records.data.forEach((record) => {
-        record.createdAt = getISTTime();
+        record.createdAt = getCurrentIstTime();
       });
 
       await api.model.create({ data: optionChainData.records.data });
@@ -72,8 +72,8 @@ export const clearDB = async () => {
   const lastNiftyData = await NiftyData.findOne().sort({ _id: -1 });
 
   if (lastBankNiftyData && lastNiftyData) {
-    lastNiftyData['createdAt'] = getISTTime();
-    lastBankNiftyData['createdAt'] = getISTTime();
+    lastNiftyData['createdAt'] = getCurrentIstTime();
+    lastBankNiftyData['createdAt'] = getCurrentIstTime();
 
     await ExpStrike.collection.drop();
     await BankNiftyData.collection.drop();

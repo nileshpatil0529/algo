@@ -1,6 +1,7 @@
 import moment from 'moment-timezone';
+import mongoose from 'mongoose';
 
-export const getISTTime = () => {
+export const getCurrentIstTime = () => {
   const currentTime = new Date();
   const offset = 5.5 * 60 * 60 * 1000;
   return new Date(currentTime.getTime() + offset).toISOString();
@@ -13,3 +14,17 @@ export const createNewDate = (inputTime) => {
   date.setUTCHours(hours, minutes, 0, 0);
   return date.toISOString();
 };
+
+export const genericModel = new mongoose.Schema(
+  {
+    createdAt: {
+      type: Date,
+      default: () => {
+        const now = new Date();
+        const istOffset = 5.5 * 60 * 60 * 1000;
+        return new Date(now.getTime() + istOffset);
+      },
+    },
+  },
+  { strict: false }
+);
