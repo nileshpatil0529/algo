@@ -4,8 +4,8 @@ import cors from 'cors';
 import path from "path"
 
 import connectToMongo from './config/db.js';
-import optionChainRoutes from './routes/optionChainRoutes.js';
-import { cronRunner } from './cron.js';
+import routes from './routes/routes.js';
+import { cronRunner } from './cron/cron.js';
 
 const app = express();
 dotenv.config();
@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'dist/algo-ui')));
 
-app.use('/api', optionChainRoutes);
+app.use('/api', routes);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/algo-ui/index.html'));
