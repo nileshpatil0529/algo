@@ -1,5 +1,18 @@
 import mongoose from 'mongoose';
-import { genericModel } from '../comon/util.js';
+
+export const genericModel = new mongoose.Schema(
+  {
+    createdAt: {
+      type: Date,
+      default: () => {
+        const now = new Date();
+        const istOffset = 5.5 * 60 * 60 * 1000;
+        return new Date(now.getTime() + istOffset);
+      },
+    },
+  },
+  { strict: false }
+);
 
 // Option-chain model
 const niftySchema = genericModel;

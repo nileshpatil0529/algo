@@ -1,6 +1,7 @@
 import cron from 'node-cron';
 import moment from 'moment-timezone';
-import { storeOptionChainNSE, storeExpiryStrike, clearDB } from './cron-helper.js';
+import { clearDB } from './cron-helper.js'; 
+import { storeExpiryStrike, storeOptionChainNSE } from '../controllers/optionChainController.js';
 
 export const cronRunner = () => {
   // Cron job for every minute from 9:15 AM IST to 3:30 PM IST (which is 11:45 AM SGT to 6:00 PM SGT Singapore)
