@@ -41,9 +41,9 @@ option {
     z-index: 1000;
     background-color: white;
     padding: 10px 0;
-  }
+}
 
-  .clear-reload {
+.clear-reload {
     top: 30px !important;
     color: #C35516;
-  }
+}

@@ -6,10 +6,10 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AlgoDataService {
-  private apiUrl = 'http://localhost:8080/api/get-exp-strike';
-  private nseDataUrl = 'http://localhost:8080/api/get-option-chain-data';
-  // private apiUrl = 'https://algo.cryptogyani.com/api/get-exp-strike';
-  // private nseDataUrl = 'https://algo.cryptogyani.com/api/get-data';
+  // private apiUrl = 'http://localhost:8080/api/get-exp-strike';
+  // private nseDataUrl = 'http://localhost:8080/api/get-option-chain-data';
+  private apiUrl = 'https://algo.cryptogyani.com/api/get-exp-strike';
+  private nseDataUrl = 'https://algo.cryptogyani.com/api/get-data';
 
   constructor(private http: HttpClient) {}
 

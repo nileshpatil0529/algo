@@ -46,20 +46,16 @@
     </div>
 
     <div class="col-auto position-relative">
-      <button type="button" class="btn btn-sm btn-light rounded-circle position-absolute clear-reload" style="right: -70px;" (click)="expStrikeList()">&#x2715;</button>
-      <button type="button" class="btn btn-sm btn-light rounded-circle position-absolute clear-reload" style="right: -30px;" (click)="onSubmit()">&#x21bb;</button>
+      <button type="button" class="btn btn-sm btn-light rounded-circle position-absolute clear-reload" style="right: -70px" (click)="expStrikeList()">&#x2715;</button>
+      <button type="button" class="btn btn-sm btn-light rounded-circle position-absolute clear-reload" style="right: -30px" (click)="onSubmit()">&#x21bb;</button>
     </div>
   </form>
 </div>
 
-
-
 <!-- Table Data -->
 <div class="container-fluid">
   <div class="row justify-content-center">
-    <h4 *ngIf="!tradeDataArray.length" class="text-center text-danger py-5">
-      No data found!
-    </h4>
+    <h4 *ngIf="!tradeDataArray.length" class="text-center text-danger py-5">No data found!</h4>
     <div class="col-12" *ngIf="tradeDataArray.length">
       <table class="table table-hover text-center table-bordered">
         <thead class="table-success tbl-style">
@@ -83,7 +79,7 @@
             <th>Buy Qty</th>
             <th>Sell Qty</th>
             <!-- Strike Price -->
-            <th>{{ expiryCheck ? "Strike" : "Expiry" }}</th>
+            <th>{{ expiryCheck ? 'Strike' : 'Expiry' }}</th>
             <!-- Second Set of Columns -->
             <th>Sell Qty</th>
             <th>Buy Qty</th>
@@ -98,35 +94,38 @@
         <tbody *ngFor="let tradeData of tradeDataArray">
           <tr *ngFor="let trade of tradeData['data']">
             <!-- Buy columns (10 columns) -->
-            <td class="color-row-col">{{ trade["createdAt"] ? (trade["createdAt"] | istDate) : "-" }}</td>
+            <td class="color-row-col">{{ trade['createdAt'] ? (trade['createdAt'] | istDate) : '-' }}</td>
             <!-- <td class="color-row-col">{{ trade['strikePrice'] || "-" }}</td> -->
-            <td class="color-row-col">{{ trade['CE'] ? (trade['CE']["underlyingValue"]) : trade['PE'] ? (trade['PE']["underlyingValue"]) : "-" }}</td>
-            <td>{{ trade["CE"] ? trade["CE"].openInterest : "-" }}</td>
-            <td>{{ trade["CE"] ? trade["CE"].changeinOpenInterest : "-" }}</td>
-            <td>{{ trade["CE"] ? trade["CE"].totalTradedVolume : "-" }}</td>
-            <td>{{ trade["CE"] ? trade["CE"].impliedVolatility : "-" }}</td>
-            <td>{{ trade["CE"] ? trade["CE"].lastPrice : "-" }}</td>
-            <td>{{ trade["CE"] ? (trade["CE"].change | number : "1.2-2") : "-" }}</td>
-            <td>{{ trade["CE"] ? trade["CE"].totalBuyQuantity : "-" }}</td>
-            <td>{{ trade["CE"] ? trade["CE"].totalSellQuantity : "-" }}</td>
+            <td class="color-row-col">{{ trade['CE'] ? trade['CE']['underlyingValue'] : trade['PE'] ? trade['PE']['underlyingValue'] : '-' }}</td>
+            <td>{{ trade['CE'] ? trade['CE'].openInterest : '-' }}</td>
+            <td>{{ trade['CE'] ? trade['CE'].changeinOpenInterest : '-' }}</td>
+            <td>{{ trade['CE'] ? trade['CE'].totalTradedVolume : '-' }}</td>
+            <td>{{ trade['CE'] ? trade['CE'].impliedVolatility : '-' }}</td>
+            <td>{{ trade['CE'] ? trade['CE'].lastPrice : '-' }}</td>
+            <td>{{ trade['CE'] ? (trade['CE'].change | number : '1.2-2') : '-' }}</td>
+            <td>{{ trade['CE'] ? trade['CE'].totalBuyQuantity : '-' }}</td>
+            <td>{{ trade['CE'] ? trade['CE'].totalSellQuantity : '-' }}</td>
             <!-- Strike Price column -->
-            <td [ngStyle]="{
-                  'background-color': getNearestStrikePrice(trade['CE'] ? trade['CE'].underlyingValue : '-') === trade.strikePrice ? 'green' : '',
-                  color: getNearestStrikePrice(trade['CE'] ? trade['CE'].underlyingValue : '-') === trade.strikePrice ? 'white' : ''
-                }">
+            <td
+              [ngStyle]="{
+                'background-color': getNearestStrikePrice(trade['CE'] ? trade['CE'].underlyingValue : '-') === trade.strikePrice ? 'green' : '',
+                color: getNearestStrikePrice(trade['CE'] ? trade['CE'].underlyingValue : '-') === trade.strikePrice ? 'white' : ''
+              }">
               {{ expiryCheck ? trade.strikePrice : trade.expiryDate }}
             </td>
             <!-- Sell columns (10 columns) -->
-            <td>{{ trade["PE"] ? trade["PE"].totalSellQuantity : "-" }}</td>
-            <td>{{ trade["PE"] ? trade["PE"].totalBuyQuantity : "-" }}</td>
-            <td>{{ trade["PE"] ? (trade["PE"].change | number : "1.2-2") : "-" }}</td>
-            <td>{{ trade["PE"] ? trade["PE"].lastPrice : "-" }}</td>
-            <td>{{ trade["PE"] ? trade["PE"].impliedVolatility : "-" }}</td>
-            <td>{{ trade["PE"] ? trade["PE"].totalTradedVolume : "-" }}</td>
-            <td>{{ trade["PE"] ? trade["PE"].changeinOpenInterest : "-" }}</td>
-            <td>{{ trade["PE"] ? trade["PE"].openInterest : "-" }}</td>
+            <td>{{ trade['PE'] ? trade['PE'].totalSellQuantity : '-' }}</td>
+            <td>{{ trade['PE'] ? trade['PE'].totalBuyQuantity : '-' }}</td>
+            <td>{{ trade['PE'] ? (trade['PE'].change | number : '1.2-2') : '-' }}</td>
+            <td>{{ trade['PE'] ? trade['PE'].lastPrice : '-' }}</td>
+            <td>{{ trade['PE'] ? trade['PE'].impliedVolatility : '-' }}</td>
+            <td>{{ trade['PE'] ? trade['PE'].totalTradedVolume : '-' }}</td>
+            <td>{{ trade['PE'] ? trade['PE'].changeinOpenInterest : '-' }}</td>
+            <td>{{ trade['PE'] ? trade['PE'].openInterest : '-' }}</td>
           </tr>
-          <tr><td colspan="19" class="color-row-col"></td></tr>
+          <tr>
+            <td colspan="19" class="color-row-col"></td>
+          </tr>
         </tbody>
       </table>
     </div>

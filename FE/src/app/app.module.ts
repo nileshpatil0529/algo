@@ -3,18 +3,22 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AlgoDataComponent } from './components/algo-data/algo-data.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AlertComponent } from './components/alert/alert.component';
 import { IstDatePipe } from './pipes/ist-date.pipe';
+import { LandingPageComponent } from './components/landing-page/landing-page.component';
+import { FutureComponent } from './components/future/future.component';
+import { OptionComponent } from './components/option/option.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AlgoDataComponent,
     AlertComponent,
-    IstDatePipe
+    IstDatePipe,
+    LandingPageComponent,
+    FutureComponent,
+    OptionComponent
   ],
   imports: [
     BrowserModule,

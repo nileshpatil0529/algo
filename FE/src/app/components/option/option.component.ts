@@ -3,12 +3,12 @@ import { DatePipe } from '@angular/common';
 import { AlgoDataService } from 'src/app/services/algo-data.service';
 
 @Component({
-  selector: 'app-algo-data',
-  templateUrl: './algo-data.component.html',
-  styleUrls: ['./algo-data.component.css'],
+  selector: 'app-option',
+  templateUrl: './option.component.html',
+  styleUrls: ['./option.component.css'],
   providers: [DatePipe],
 })
-export class AlgoDataComponent implements OnInit {
+export class OptionComponent implements OnInit {
   // Define a model for form data
   tradeData: any = {
     exchange: 'NIFTY',
