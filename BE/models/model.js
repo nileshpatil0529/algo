@@ -15,16 +15,26 @@ export const genericModel = new mongoose.Schema(
 );
 
 // Option-chain model
-const niftySchema = genericModel;
-const bankNiftySchema = genericModel;
-const expStrikeList = genericModel;
+const optionNiftySchema = genericModel;
+const optionBankNiftySchema = genericModel;
+const optionExpStrikeList = genericModel;
 
-const NiftyData = mongoose.model('NiftyData', niftySchema);
-const BankNiftyData = mongoose.model('BankNiftyData', bankNiftySchema);
-const ExpStrike = mongoose.model('ExpStrike', expStrikeList);
+const optionNiftyData = mongoose.model('optionNifty', optionNiftySchema);
+const optionBankNiftyData = mongoose.model('optionBanknifty', optionBankNiftySchema);
+const optionExpStrike = mongoose.model('optionExpStrike', optionExpStrikeList);
+
+// Option-chain model
+const futureNiftySchema = genericModel;
+const futureBankNiftySchema = genericModel;
+const futureExpStrikeList = genericModel;
+
+const futureNiftyData = mongoose.model('futureNifty', futureNiftySchema);
+const futureBankNiftyData = mongoose.model('futureBankNifty', futureBankNiftySchema);
+// const futureExpStrike = mongoose.model('futureExpStrike', futureExpStrikeList);
 
 // Alert Model
 const alertData = genericModel;
+
 const AlertData = mongoose.model('AlertData', alertData);
 
-export { NiftyData, BankNiftyData, AlertData, ExpStrike };
+export { optionNiftyData, optionBankNiftyData, optionExpStrike, futureNiftyData, futureBankNiftyData, AlertData };

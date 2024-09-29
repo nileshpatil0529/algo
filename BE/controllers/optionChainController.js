@@ -1,5 +1,5 @@
 import { createNewDate } from '../comon/util.js';
-import { NiftyData, BankNiftyData, ExpStrike } from '../models/model.js';
+import { optionNiftyData, optionBankNiftyData, optionExpStrike } from '../models/model.js';
 import { getCurrentIstTime, ApiHeaders, api_Model_collections } from '../comon/util.js';
 
 const apis = api_Model_collections;
@@ -55,7 +55,7 @@ export const storeExpiryStrike = async () => {
       break;
   }
   try {
-    const list = new ExpStrike(selectList);
+    const list = new optionExpStrike(selectList);
     await list.save();
   } catch (error) {
     console.error('Error storing expStriks list:', error);
@@ -66,7 +66,7 @@ export const getExpiryStrikeList = async (req, res) => {
   const { exchange } = req.body;
 
   try {
-    const data = await ExpStrike.findOne().sort({ createdAt: -1 }).exec();
+    const data = await optionExpStrike.findOne().sort({ createdAt: -1 }).exec();
 
     if (!data) {
       return res.status(404).json({ error: 'No data found' });
@@ -96,9 +96,9 @@ export const getOptionChainData = async (req, res) => {
   let model = '';
 
   if (exchange === 'NIFTY') {
-    model = NiftyData;
+    model = optionNiftyData;
   } else if (exchange === 'BANKNIFTY') {
-    model = BankNiftyData;
+    model = optionBankNiftyData;
   }
 
   try {

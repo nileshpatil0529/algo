@@ -1,9 +1,9 @@
 import moment from 'moment-timezone';
-import { NiftyData, BankNiftyData } from '../models/model.js';
+import { optionNiftyData, optionBankNiftyData } from '../models/model.js';
 
 export const api_Model_collections = [
-  { url: 'https://www.nseindia.com/api/option-chain-indices?symbol=NIFTY', model: NiftyData, name: 'NIFTY' },
-  { url: 'https://www.nseindia.com/api/option-chain-indices?symbol=BANKNIFTY', model: BankNiftyData, name: 'BankNifty' },
+  { url: 'https://www.nseindia.com/api/option-chain-indices?symbol=NIFTY', model: optionNiftyData, name: 'NIFTY' },
+  { url: 'https://www.nseindia.com/api/option-chain-indices?symbol=BANKNIFTY', model: optionBankNiftyData, name: 'BankNifty' },
 ];
 
 export const ApiHeaders = {
